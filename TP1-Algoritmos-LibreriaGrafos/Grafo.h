@@ -76,3 +76,18 @@ namespace URGGrafo{
 }
 
 #endif
+
+
+Grafo* CrearGrafoDirigido(string nombre, int cantidadVertices){
+	if (cantidadVertices<0){
+		return NULL;
+	}
+	Grafo*grafo=new Grafo();
+	grafo->nombre=nombre;
+	grafo->id=GenerarIdUnico();
+	grafo->cantidadVertices=CantidadVertices;
+	grafo->esDirigido=true;
+
+	return grafo;
+}
+	

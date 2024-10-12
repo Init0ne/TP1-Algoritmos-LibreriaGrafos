@@ -90,4 +90,19 @@ Grafo* CrearGrafoDirigido(string nombre, int cantidadVertices){
 
 	return grafo;
 }
+
+
+Grafo* CrearGrafoNoDirigido(string nombre, int cantidadVertices){
+	if (cantidadVertices<0){
+		return NULL;
+	}
+	Grafo*grafo=new Grafo();
+	grafo->nombre=nombre;
+	grafo->id=GenerarIdUnico();
+	grafo->cantidadVertices=CantidadVertices;
+	grafo->esDirigido=false;
+
+	return grafo;
+}
+	
 	

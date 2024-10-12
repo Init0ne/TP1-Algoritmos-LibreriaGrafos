@@ -19,6 +19,12 @@ namespace URGGeneradorIdentificador{
 }
 
 
+int ObtenerIndiceAleatorio() {
+        static int contador = 0;  
+        contador++;
+        return contador % 36;  
+    }
+
 
 char GenerarCaracterAleatorio(int indice){
 	const char caracteres[]="abcdefghijklmnopqrstuvwxyz0123456789";

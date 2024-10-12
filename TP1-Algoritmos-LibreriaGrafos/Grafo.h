@@ -104,5 +104,42 @@ Grafo* CrearGrafoNoDirigido(string nombre, int cantidadVertices){
 
 	return grafo;
 }
+
+
+string ObtenerNombre(const Grafo* grafo){
+	return grafo->nombre;
+}
+
+
+string ObtenerIdentificador(const Grafo* grafo){
+	return grafo->identificador;
+}
+
+
+void Conectar(Grafo* grafo, int verticeOrigen, int verticeDestino){// FALTA IMPLEMENTAR
 	
+}
+
+
+bool SonAdyacentes(const Grafo* grafo, int verticeOrigen, int verticeDestino){//FALTA IMPLEMENTAR
+}
+
+
+string ObtenerVertices(const Grafo* grafo){//FALTA IMPLEMENTAR
+	
+}
+
+
+string ObtenerAristas(const Grafo* grafo){//FALTA IMPLEMENTAR
+	
+}
+	
+
+void DestruirGrafo(Grafo* grafo){
+	if(grafo==nullptr){
+		return;
+	}
+	grafo->adayacencias.clear();
+	delete grafo;
+}
 	

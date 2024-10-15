@@ -28,7 +28,7 @@ namespace URGGeneradorIdentificador{
 
 		srand(time(0));
 
-		for (int i= 0; i<id_formato.length; i++){
+		for (int i= 0; i<id_formato.length(); i++){
 			 if (id_formato[i] == '#') {
 				identificador += caracteres[rand() % longitud];
 			}else{

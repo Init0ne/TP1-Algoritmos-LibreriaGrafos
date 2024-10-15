@@ -42,13 +42,7 @@ namespace URGGeneradorIdentificador{
 		
 		    std::string id = GenerarIdentificadorUnico();
     		std::cout << "Identificador generado: " << id << std::endl;
-
-		
-
+	}
 }
-
-}
-
-
 
 #endif

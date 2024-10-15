@@ -2,10 +2,22 @@
 #define GRAFO_H_
 
 #include <string>
+#include <list>
+#include <vector>
 using std::string;
+using std::vector;
+using std::list;
+
+enum TipoGrafo { DIRIGIDO, NODIRIGIDO};
 
 namespace URGGrafo{
-	struct Grafo;
+	struct Grafo{
+		string id;
+		string nombre;
+		int cantidadVertices;
+		vector<list<int>> listaAdyacencia;
+		TipoGrafo tipo;
+	};
 
 	/*
 	 * Precondicion: -
@@ -73,73 +85,58 @@ namespace URGGrafo{
 	 * Postcondiciones: Libera todos los recursos asociados a @grafo
 	 */
 	void DestruirGrafo(Grafo* grafo);
+
+	Grafo* CrearGrafoDirigido(string nombre, int cantidadVertices){
+		Grafo* grafo = new Grafo;
+		if(cantidadVertices >= 0){
+			grafo->nombre = nombre;
+			grafo->id = GenerarIdentificadorUnico();
+			grafo->tipo = DIRIGIDO;
+			grafo->listaAdyacencia.resize(cantidadVertices);
+		}
+		else{
+			return nullptr;
+		}
+		return grafo;
+	}
+
+	Grafo* CrearGrafoNoDirigido(string nombre, int cantidadVertices){
+		Grafo* grafo = new Grafo;
+		if(cantidadVertices >= 0){
+			grafo->nombre = nombre;
+			grafo->id = GenerarIdentificadorUnico();
+			grafo->tipo = NODIRIGIDO;
+			grafo->listaAdyacencia.resize(cantidadVertices);
+		}
+		else{
+			return nullptr;
+		}
+		return grafo;
+	}
+
+	string ObtenerNombre(const Grafo* grafo){
+		return grafo->nombre;
+	}
+
+	string ObtenerIdentificador(const Grafo* grafo){
+		return grafo->id;
+	}
+
+	void Conectar(Grafo* grafo, int verticeOrigen, int verticeDestino) {
+		if (verticeOrigen >= 0 && verticeDestino >= 0 && 
+			verticeOrigen < grafo->cantidadVertices && verticeDestino < grafo->cantidadVertices) {
+			if (grafo->tipo == DIRIGIDO) {
+				grafo->listaAdyacencia[verticeOrigen].push_back(verticeDestino);
+			} else {
+				grafo->listaAdyacencia[verticeOrigen].push_back(verticeDestino);
+				grafo->listaAdyacencia[verticeDestino].push_back(verticeOrigen);
+			}
+		}
+	}
+
+	bool SonAdyacentes(const Grafo* grafo, int verticeOrigen, int verticeDestino){
+		
+	}
 }
 
 #endif
-
-
-Grafo* CrearGrafoDirigido(string nombre, int cantidadVertices){
-	if (cantidadVertices<0){
-		return NULL;
-	}
-	Grafo*grafo=new Grafo();
-	grafo->nombre=nombre;
-	grafo->id=GenerarIdUnico();
-	grafo->cantidadVertices=CantidadVertices;
-	grafo->esDirigido=true;
-
-	return grafo;
-}
-
-
-Grafo* CrearGrafoNoDirigido(string nombre, int cantidadVertices){
-	if (cantidadVertices<0){
-		return NULL;
-	}
-	Grafo*grafo=new Grafo();
-	grafo->nombre=nombre;
-	grafo->id=GenerarIdUnico();
-	grafo->cantidadVertices=CantidadVertices;
-	grafo->esDirigido=false;
-
-	return grafo;
-}
-
-
-string ObtenerNombre(const Grafo* grafo){
-	return grafo->nombre;
-}
-
-
-string ObtenerIdentificador(const Grafo* grafo){
-	return grafo->identificador;
-}
-
-
-void Conectar(Grafo* grafo, int verticeOrigen, int verticeDestino){// FALTA IMPLEMENTAR
-	
-}
-
-
-bool SonAdyacentes(const Grafo* grafo, int verticeOrigen, int verticeDestino){//FALTA IMPLEMENTAR
-}
-
-
-string ObtenerVertices(const Grafo* grafo){//FALTA IMPLEMENTAR
-	
-}
-
-
-string ObtenerAristas(const Grafo* grafo){//FALTA IMPLEMENTAR
-	
-}
-	
-
-void DestruirGrafo(Grafo* grafo){
-	if(grafo==nullptr){
-		return;
-	}
-	grafo->adayacencias.clear();
-	delete grafo;
-}
-	

@@ -1,59 +1,55 @@
 #ifndef GENERADORIDENTIFICADOR_H_
 #define GENERADORIDENTIFICADOR_H_
-using namespace std;
-#include<iostream>
+
+#include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
+
 using std::string;
 
 namespace URGGeneradorIdentificador{
-	/*
-	 * Precondicion: -
-	 * Postcondicion: Devuelve un string unico que tiene el siguiente formato
-	 * ########-####-####-########
-	 * Donde # puede ser
-	 * - cualquier caracter del alfabeto español en minuscula
-	 * - cualquier numero del 0 al 9
-	 * donde cada valor del identificador debe tener una probabilidad uniforme de aparecer.
-	 */
-	string GenerarIdentificadorUnico();
+    /*
+     * Precondicion: -
+     * Postcondicion: Devuelve un string unico que tiene el siguiente formato
+     * ########-####-####-########
+     * Donde # puede ser
+     * - cualquier caracter del alfabeto espa�ol en minuscula
+     * - cualquier numero del 0 al 9
+     * donde cada valor del identificador debe tener una probabilidad uniforme de aparecer.
+     */
+    string GenerarIdentificadorUnico();
+
+
+	string GenerarIdentificadorUnico(){
+		const char caracteres[] = "abcdefghijklmnopqrstuvwxyz0123456789";
+		int longitud = sizeof(caracteres) - 1; 
+		std::string id_formato = "########-####-####-########";
+		std::string identificador;
+
+		srand(time(0));
+
+		for (int i= 0; i<id_formato.length; i++){
+			 if (id_formato[i] == '#') {
+				identificador += caracteres[rand() % longitud];
+			}else{
+				identificador += id_formato[i];
+			}
+		
+		}
+
+		return identificador;  
+
+		
+		    std::string id = GenerarIdentificadorUnico();
+    		std::cout << "Identificador generado: " << id << std::endl;
+
+		
+
+}
+
 }
 
 
-int ObtenerIndiceAleatorio() {
-        static int contador = 0;  
-        contador++;
-        return contador % 36;  
-    }
 
-
-char GenerarCaracterAleatorio(int indice){
-	const char caracteres[]="abcdefghijklmnopqrstuvwxyz0123456789";
-	return caracteres[indice % 36];
-}
-
-
-string GenerarIdentificadorUnico(){
-	string identificador;
-	int contadorCaracteres=0;
-
-	for (int contadorPrimeros8Caracteres=0; contadorPrimeros8Caracteres<8; ++contadorPrimeros8Caracteres){
-		identificador+=GenerarCaracterAleatorio(contadorCaracteres++);
-	}
-	identificador+='-';
-
-	for (int contadorSiguientes4Caracteres1=0; contadorSiguientes4Caracteres1<4; ++contadorSiguientes4Caracteres1){
-		identificador+=GenerarCaracterAleatorio(contadorCaracteres++);
-	}
-	identificador+='-';
-
-	for (int contadorSiguientes4Caracteres2=0; contadorSiguientes4Caracteres2<4; ++contadorSiguientes4Caracteres2){
-		identificador+=GenerarCaracterAleatorio(contadorCaracteres++);
-	}
-	identificador+='-';
-
-	for(int contadorUltimos8Caracteres=0; contadorUltimos8Caracteres<8; ++contadorUltimos8Caracteres){
-		identificador+=GenerarCaracterAleatorio(contadorCaracteres++);
-	}
-	
-	return identificador;	
-}
+#endif

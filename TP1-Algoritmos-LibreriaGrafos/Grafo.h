@@ -135,6 +135,19 @@ namespace URGGrafo{
 	}
 
 	bool SonAdyacentes(const Grafo* grafo, int verticeOrigen, int verticeDestino){
+
+		if(verticeOrigen >= 0 && verticeOrigen < grafo->cantidadVertices && verticeDestino >= 0 && verticeDestino < grafo->cantidadVertices) {  
+
+   		 
+		 	for(int i = 0; i < grafo->listaAdyacencia.size(); i++){
+				if(grafo->listaAdyacencia[verticeOrigen][i] == verticeDestino){
+					return true;
+				}
+    		}
+
+		}
+
+		return false;
 		
 	}
 }

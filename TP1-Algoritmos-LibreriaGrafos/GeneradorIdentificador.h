@@ -20,7 +20,6 @@ namespace URGGeneradorIdentificador{
      */
     string GenerarIdentificadorUnico();
 
-
 	string GenerarIdentificadorUnico(){
 		const char caracteres[] = "abcdefghijklmnopqrstuvwxyz0123456789";
 		int longitud = sizeof(caracteres) - 1; 

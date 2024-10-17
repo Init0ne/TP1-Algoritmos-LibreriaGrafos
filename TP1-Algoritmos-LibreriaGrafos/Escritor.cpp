@@ -1,6 +1,10 @@
 #include "Escritor.h"
 
 namespace URGEscritor {
+    struct Escritor {
+        TipoEscritor tipo = CONSOLA;
+        std::ofstream archivo;
+    };
 
     /*
 	 * Precondicion: -

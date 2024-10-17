@@ -14,13 +14,7 @@ enum TipoGrafo { DIRIGIDO, NODIRIGIDO };
 
 namespace URGGrafo {
 
-    struct Grafo {
-        string id;
-        string nombre;
-        int cantidadVertices;
-        vector<list<int>> listaAdyacencia;
-        TipoGrafo tipo;
-    };
+    struct Grafo;
 
     Grafo* CrearGrafoDirigido(string nombre, int cantidadVertices);
     Grafo* CrearGrafoNoDirigido(string nombre, int cantidadVertices);

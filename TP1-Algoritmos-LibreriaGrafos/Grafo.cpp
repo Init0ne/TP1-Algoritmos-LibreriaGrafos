@@ -4,6 +4,13 @@
 using namespace URGGeneradorIdentificador;
 
 namespace URGGrafo {
+	struct Grafo {
+		string id;
+		string nombre;
+		int cantidadVertices  = 0;
+		vector<list<int>> listaAdyacencia;
+		TipoGrafo tipo = DIRIGIDO;
+	};
 	/*
 	* Precondicion: -
 	* Postcondicion: Si @cantidad de vertices es un numero mayor o igual que cero

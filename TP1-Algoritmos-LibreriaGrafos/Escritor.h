@@ -6,14 +6,11 @@
 #include <iostream>
 using std::string;
 
+
+
 namespace URGEscritor {
-
     enum TipoEscritor { ARCHIVO, CONSOLA };
-
-    struct Escritor {
-        TipoEscritor tipo;
-        std::ofstream archivo;
-    };
+    struct Escritor;
 
     Escritor* CrearEscritorArchivo(string nombreArchivo);
     Escritor* CrearEscritorConsola();

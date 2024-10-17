@@ -87,29 +87,30 @@ namespace URGGrafo{
 	void DestruirGrafo(Grafo* grafo);
 
 	Grafo* CrearGrafoDirigido(string nombre, int cantidadVertices){
-		Grafo* grafo = new Grafo;
-		if(cantidadVertices >= 0){
-			grafo->nombre = nombre;
+		if(cantidadVertices < 0){
+			return nullptr;
+		}
+		else{
+            Grafo* grafo = new Grafo;
+            grafo->nombre = nombre;
 			grafo->id = GenerarIdentificadorUnico();
 			grafo->tipo = DIRIGIDO;
 			grafo->listaAdyacencia.resize(cantidadVertices);
-		}
-		else{
-			return nullptr;
+		
 		}
 		return grafo;
 	}
 
 	Grafo* CrearGrafoNoDirigido(string nombre, int cantidadVertices){
-		Grafo* grafo = new Grafo;
-		if(cantidadVertices >= 0){
-			grafo->nombre = nombre;
+		if(cantidadVertices < 0){
+			return nullptr;
+		}
+		else{
+            Grafo* grafo = new Grafo;
+            grafo->nombre = nombre;
 			grafo->id = GenerarIdentificadorUnico();
 			grafo->tipo = NODIRIGIDO;
 			grafo->listaAdyacencia.resize(cantidadVertices);
-		}
-		else{
-			return nullptr;
 		}
 		return grafo;
 	}

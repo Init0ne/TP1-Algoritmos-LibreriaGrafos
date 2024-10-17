@@ -27,7 +27,7 @@ namespace URGGrafo {
 			grafo->id = GenerarIdentificadorUnico();
 			grafo->tipo = DIRIGIDO;
 			grafo->listaAdyacencia.resize(cantidadVertices);
-			 grafo->cantidadVertices = cantidadVertices;
+			grafo->cantidadVertices = cantidadVertices;
 			return grafo;
 		}
 	}
@@ -48,7 +48,7 @@ namespace URGGrafo {
 			grafo->id = GenerarIdentificadorUnico();
 			grafo->tipo = NODIRIGIDO;
 			grafo->listaAdyacencia.resize(cantidadVertices);
-			 grafo->cantidadVertices = cantidadVertices;
+			grafo->cantidadVertices = cantidadVertices;
 			return grafo;
 		}
 	}
@@ -109,14 +109,14 @@ namespace URGGrafo {
 	* Postcondiciones: Devuelve los vertices en un registro en formato CSV donde cada campo es un vertice
 	*/
 	string ObtenerVertices(const Grafo* grafo) {
-		if (grafo == nullptr || grafo->listaAdyacencia.size() == 0) {
+		if (grafo == nullptr || grafo->cantidadVertices == 0) {
 			return "Sin Vertices";
 		}
 
 		string resultado;
-		for (int i = 0; i < grafo->listaAdyacencia.size(); ++i) {
+		for (int i = 0; i < grafo->cantidadVertices; ++i) {
 			resultado += std::to_string(i);
-			if (i < grafo->listaAdyacencia.size() - 1) {
+			if (i < grafo->cantidadVertices - 1) {
 				resultado += ",";
 			}
 		}

@@ -107,14 +107,14 @@ namespace URGGrafo {
 	* Postcondiciones: Devuelve los vertices en un registro en formato CSV donde cada campo es un vertice
 	*/
 	string ObtenerVertices(const Grafo* grafo) {
-		if (grafo == nullptr || grafo->cantidadVertices == 0) {
-			return "";
+		if (grafo == nullptr || grafo->listaAdyacencia.size() == 0) {
+			return "Sin Vertices";
 		}
 
 		string resultado;
-		for (int i = 0; i < grafo->cantidadVertices; ++i) {
+		for (int i = 0; i < grafo->listaAdyacencia.size(); ++i) {
 			resultado += std::to_string(i);
-			if (i < grafo->cantidadVertices - 1) {
+			if (i < grafo->listaAdyacencia.size() - 1) {
 				resultado += ",";
 			}
 		}
@@ -133,14 +133,14 @@ namespace URGGrafo {
 	* Para el caso de los grafos no dirigidos no hay que duplicar las relaciones conmutativas
 	*/
 	string ObtenerAristas(const Grafo* grafo) {
-		if (grafo == nullptr || grafo->cantidadVertices == 0) {
-			return "";
+		if (grafo == nullptr || grafo->listaAdyacencia.size() == 0) {
+			return "Sin Aristas";
 		}
 
 		string resultado;
-		vector<vector<bool>> visitado(grafo->cantidadVertices, vector<bool>(grafo->cantidadVertices, false));
+		vector<vector<bool>> visitado(grafo->listaAdyacencia.size(), vector<bool>(grafo->listaAdyacencia.size(), false));
 
-		for (int i = 0; i < grafo->cantidadVertices; ++i) {
+		for (int i = 0; i < grafo->listaAdyacencia.size(); ++i) {
 			for (int vecino : grafo->listaAdyacencia[i]) {
 				if (grafo->tipo == DIRIGIDO) {
 					resultado += std::to_string(i) + "-" + std::to_string(vecino) + " ";

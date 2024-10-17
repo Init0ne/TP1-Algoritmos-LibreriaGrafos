@@ -1,3 +1,6 @@
 .vscode/c_cpp_properties.json
 .vscode/tasks.json
 .vscode/launch.json
+/.vs/Tp algo visual/v17
+/.vs
+/CppProperties.json

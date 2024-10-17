@@ -16,6 +16,8 @@ void CargarGrafoDirigido(Grafo* grafo);
 void CargarGrafoNoDirigido(Grafo* grafo);
 
 int main() {
+
+	srand(time(0));
 	GenerarIdentificadores();
 	ProbarGrafos();
 

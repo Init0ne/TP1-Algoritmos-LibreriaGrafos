@@ -1,6 +1,7 @@
 #ifndef GRAFO_H_
 #define GRAFO_H_
 
+#include <sstream>
 #include <string>
 #include <list>
 #include <vector>
@@ -86,34 +87,25 @@ namespace URGGrafo{
 	 */
 	void DestruirGrafo(Grafo* grafo);
 
-	Grafo* CrearGrafoDirigido(string nombre, int cantidadVertices){
-		if(cantidadVertices < 0){
-			return nullptr;
-		}
-		else{
-            Grafo* grafo = new Grafo;
-            grafo->nombre = nombre;
-			grafo->id = GenerarIdentificadorUnico();
-			grafo->tipo = DIRIGIDO;
-			grafo->listaAdyacencia.resize(cantidadVertices);
-		
-		}
-		return grafo;
-	}
+	Grafo* CrearGrafo(string nombre, int cantidadVertices, TipoGrafo tipo) {
+    if (cantidadVertices < 0) {
+        return nullptr;
+    }
+    Grafo* grafo = new Grafo;
+    grafo->nombre = nombre;
+    grafo->id = GenerarIdentificadorUnico();
+    grafo->tipo = tipo;
+    grafo->listaAdyacencia.resize(cantidadVertices);
+    return grafo;
+}
 
-	Grafo* CrearGrafoNoDirigido(string nombre, int cantidadVertices){
-		if(cantidadVertices < 0){
-			return nullptr;
-		}
-		else{
-            Grafo* grafo = new Grafo;
-            grafo->nombre = nombre;
-			grafo->id = GenerarIdentificadorUnico();
-			grafo->tipo = NODIRIGIDO;
-			grafo->listaAdyacencia.resize(cantidadVertices);
-		}
-		return grafo;
-	}
+Grafo* CrearGrafoDirigido(string nombre, int cantidadVertices) {
+    return CrearGrafo(nombre, cantidadVertices, DIRIGIDO);
+}
+
+Grafo* CrearGrafoNoDirigido(string nombre, int cantidadVertices) {
+    return CrearGrafo(nombre, cantidadVertices, NODIRIGIDO);
+}
 
 	string ObtenerNombre(const Grafo* grafo){
 		return grafo->nombre;
@@ -151,6 +143,55 @@ namespace URGGrafo{
 		return false;
 		
 	}
+
+string ObtenerVertices(const Grafo* grafo){
+        std::stringstream verticesStream;
+        for(int vertice=0; vertice<grafo->cantidadVertices; vertice++){
+            verticesStream<<vertice;
+            if(vertice<grafo ->cantidadVertices - 1){
+                verticesStream<<",";
+            }
+        }
+        return verticesStream.str();
+
+    }
+
+string ObtenerAristas(const Grafo* grafo){
+        if (grafo == nullptr) {
+        return "";
+    }
+
+    std::stringstream aristasStream; 
+
+    vector<vector<bool>> aristaVisitada(grafo->cantidadVertices, vector<bool>(grafo->cantidadVertices, false));
+
+
+    for (int verticeOrigen = 0; verticeOrigen < grafo->cantidadVertices; ++verticeOrigen) {
+        for (int verticeDestino : grafo->listaAdyacencia[verticeOrigen]) {
+            if (grafo->tipo == DIRIGIDO) {
+                aristasStream << verticeOrigen << "-" << verticeDestino << " ";
+            } else {
+                if (!aristaVisitada[verticeOrigen][verticeDestino]) {
+                    aristasStream << verticeOrigen << "-" << verticeDestino << " ";
+                    aristaVisitada[verticeOrigen][verticeDestino] = true;
+                    aristaVisitada[verticeDestino][verticeOrigen] = true;
+                }
+            }
+        }
+    }
+
+    return aristasStream.str(); // Retornar el string final de aristas
+}
+
+void DestruirGrafo(Grafo* grafo){
+        if(grafo==nullptr){
+            return;
+    }
+    grafo->listaAdyacencia.clear();
+    delete grafo;
+    }
+}
+
 }
 
 #endif

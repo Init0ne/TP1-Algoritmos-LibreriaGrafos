@@ -27,6 +27,7 @@ namespace URGGrafo {
 			grafo->id = GenerarIdentificadorUnico();
 			grafo->tipo = DIRIGIDO;
 			grafo->listaAdyacencia.resize(cantidadVertices);
+			 grafo->cantidadVertices = cantidadVertices;
 			return grafo;
 		}
 	}
@@ -47,6 +48,7 @@ namespace URGGrafo {
 			grafo->id = GenerarIdentificadorUnico();
 			grafo->tipo = NODIRIGIDO;
 			grafo->listaAdyacencia.resize(cantidadVertices);
+			 grafo->cantidadVertices = cantidadVertices;
 			return grafo;
 		}
 	}

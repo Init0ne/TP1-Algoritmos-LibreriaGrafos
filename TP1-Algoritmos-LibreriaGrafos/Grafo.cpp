@@ -7,7 +7,7 @@ namespace URGGrafo {
 	struct Grafo {
 		string id;
 		string nombre;
-		int cantidadVertices  = 0;
+		int cantidadVertices = 0;
 		vector<list<int>> listaAdyacencia;
 		TipoGrafo tipo = DIRIGIDO;
 	};
@@ -107,14 +107,18 @@ namespace URGGrafo {
 	* Postcondiciones: Devuelve los vertices en un registro en formato CSV donde cada campo es un vertice
 	*/
 	string ObtenerVertices(const Grafo* grafo) {
-		std::stringstream verticesStream;
-		for (int vertice = 0; vertice < grafo->cantidadVertices; vertice++) {
-			verticesStream << vertice;
-			if (vertice < grafo->cantidadVertices - 1) {
-				verticesStream << ",";
+		if (grafo == nullptr || grafo->cantidadVertices == 0) {
+			return "";
+		}
+
+		string resultado;
+		for (int i = 0; i < grafo->cantidadVertices; ++i) {
+			resultado += std::to_string(i);
+			if (i < grafo->cantidadVertices - 1) {
+				resultado += ",";
 			}
 		}
-		return verticesStream.str();
+		return resultado;
 	}
 
 	/*
@@ -129,29 +133,33 @@ namespace URGGrafo {
 	* Para el caso de los grafos no dirigidos no hay que duplicar las relaciones conmutativas
 	*/
 	string ObtenerAristas(const Grafo* grafo) {
-		if (grafo == nullptr) {
+		if (grafo == nullptr || grafo->cantidadVertices == 0) {
 			return "";
 		}
 
-		std::stringstream aristasStream;
-		vector<vector<bool>> aristaVisitada(grafo->cantidadVertices, vector<bool>(grafo->cantidadVertices, false));
+		string resultado;
+		vector<vector<bool>> visitado(grafo->cantidadVertices, vector<bool>(grafo->cantidadVertices, false));
 
-		for (int verticeOrigen = 0; verticeOrigen < grafo->cantidadVertices; ++verticeOrigen) {
-			for (int verticeDestino : grafo->listaAdyacencia[verticeOrigen]) {
+		for (int i = 0; i < grafo->cantidadVertices; ++i) {
+			for (int vecino : grafo->listaAdyacencia[i]) {
 				if (grafo->tipo == DIRIGIDO) {
-					aristasStream << verticeOrigen << "-" << verticeDestino << " ";
+					resultado += std::to_string(i) + "-" + std::to_string(vecino) + " ";
 				}
 				else {
-					if (!aristaVisitada[verticeOrigen][verticeDestino]) {
-						aristasStream << verticeOrigen << "-" << verticeDestino << " ";
-						aristaVisitada[verticeOrigen][verticeDestino] = true;
-						aristaVisitada[verticeDestino][verticeOrigen] = true;
+					if (!visitado[i][vecino]) {
+						resultado += std::to_string(i) + "-" + std::to_string(vecino) + " ";
+						visitado[i][vecino] = visitado[vecino][i] = true;
 					}
 				}
 			}
 		}
 
-		return aristasStream.str();
+		// Eliminar el espacio final si existe
+		if (!resultado.empty() && resultado.back() == ' ') {
+			resultado.pop_back();
+		}
+
+		return resultado;
 	}
 
 	/*
